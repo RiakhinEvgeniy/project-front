@@ -3,9 +3,152 @@
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link href="/css/my.css" rel="stylesheet">
+
+    <style>
+
+        #t1, #t1 th, #t1 td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 8px;
+        }
+
+        #buttons-container button {
+        margin: 1px;
+        margin-top: 1px;
+        }
+
+    </style>
+
 </head>
-<body>
+
+<body onload="displayList()">
+
 <h1>RPG admin panel</h1>
 
+<h2>Accounts List</h2>
+
+<div id="dropdown-container">
+    <label for="numbers">Count per page</label>
+    <select id="numbers" onchange="displayList()"></select>
+</div>
+
+<script>
+    for (let i = 3; i <= 20; i++) {
+        $('#numbers').append(`<option value="${i}">${i}</option>>`)
+    }
+
+    $('#numbers').change(function() {
+        const selectedNumber = $(this).val();
+        alert(`${selectedNumber}`);
+
+    });
+
+</script>
+
+<table id="t1">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Race</th>
+        <th>Profession</th>
+        <th>Level</th>
+        <th>Birthday</th>
+        <th>Banned</th>
+    </tr>
+</table>
+
+<div id="buttons-container"> Pages:
+
+<!--    <button type="button" class="group-buttons">1</button>-->
+<!--    <button type="button" class="group-buttons">2</button>-->
+<!--    <button type="button" class="group-buttons">3</button>-->
+<!--    <button type="button" class="group-buttons">4</button>-->
+<!--    <button type="button" class="group-buttons">5</button>-->
+<!--    <button type="button" class="group-buttons">6</button>-->
+<!--    <button type="button" class="group-buttons">7</button>-->
+<!--    <button type="button" class="group-buttons">8</button>-->
+
+</div>
+
+<script>
+
+    function displayList() {
+
+        $("tr:has(td)").remove();
+
+        let url = "/rest/players";
+        $.get(url, function(data) {
+            $.each(data, function(i, item) {
+               $('<tr>').html("<td>"
+                        + item.id + "</td><td>"
+                        + item.name + "</td><td>"
+                        + item.title + "</td><td>"
+                        + item.race + "</td><td>"
+                        + item.profession + "</td><td>"
+                        + item.level + "</td><td>"
+                        + new Date(item.id).toLocaleDateString() + "</td>"
+                        + item.banned + "</td><td>"
+                        ).appendTo("#t1");
+            });
+        });
+
+        let totalCount = count();
+
+        let countPerPage = $("#numbers").val();
+
+        let pagesCount = Math.ceil(totalCount / countPerPage);
+
+        $("button.pgn-bnt-styled").remove();
+
+        for(let i = 1; i < pagesCount; i++) {
+            let button = "<button>"+(i + 1)+"</button>"
+            let btn = $(button)
+            .attr('id', "paging_btn_" + i)
+            .attr('onclick', "displayList()")
+            .addClass('pgn-bnt-styled');
+            $('#buttons-container').append(btn);
+        }
+    }
+
+        function count() {
+            let url = "/rest/players/count";
+            let result = 0;
+
+            $.ajax({
+                url: url,
+                async: false,
+                success: function(res) {
+                result = parseInt(res);
+                }
+
+            })
+
+            return result;
+        }
+
+<!--    $(document).ready(function() {-->
+<!--       $.get("/rest/players", function(data) {-->
+<!--               data.forEach(function(player, index) {-->
+<!--                   const birthday = new Date(player.birthday).toLocaleDateString();-->
+<!--                   const banned = player.banned ? "Yes" : "No";-->
+
+<!--                   $('#t1').append(`<tr>-->
+<!--                                       <td>${index + 1}</td>-->
+<!--                                       <td>${player.name}</td>-->
+<!--                                       <td>${player.title}</td>-->
+<!--                                       <td>${player.race}</td>-->
+<!--                                       <td>${player.profession}</td>-->
+<!--                                       <td>${player.level}</td>-->
+<!--                                       <td>${birthday}</td>-->
+<!--                                       <td>${banned}</td>-->
+<!--                                   </tr>`);-->
+<!--               });-->
+<!--       });-->
+<!--   });-->
+
+</script>
+
 </body>
+
 </html>
