@@ -2,5 +2,5 @@
 /target
 *.iml
 /lib
-.log
-.txt
+*.log
+*.txt

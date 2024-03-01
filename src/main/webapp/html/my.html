@@ -31,6 +31,7 @@
     <select id="numbers" onchange="displayList(0)">
     <option value="3">3</option>
     <option value="4">4</option>
+    <option value="5">5</option>
     <option value="7">7</option>
     <option value="10">10</option>
     <option value="14">14</option>
@@ -117,7 +118,7 @@
                         + "<button id='button_edit_" + item.id + "'>"
                         + "<img src='/img/edit.png'>"
                         + "</button>" + "</td><td>"
-                        + "<button id='button_delete_" + item.id + "'>"
+                        + "<button id='button_delete_" + item.id + "'onclick='deleteAccount(" + item.id + ")'>"
                         + "<img src='/img/delete.png'>"
                         + " </button>" + "</td>"
                         ).appendTo("#t1");
@@ -140,7 +141,7 @@
         }
 
         let identifier = "#paging_btn_" + page_number;
-        $(identifier).css('color', "green");
+        $(identifier).css('color', "red");
     }
 
         function count() {
@@ -158,6 +159,34 @@
 
             return result;
         }
+
+        function deleteAccount(id) {
+            let url = "/rest/players/" + id;
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function() {
+                    displayList(getCurrentPage());
+                }
+            });
+        }
+
+        function getCurrentPage() {
+            let currentPage = 1;
+            $('button:parent(div)').each(function() {
+                if($(this).css('color') === 'rgb(255, 0, 0)') {
+                    currentPage = $(this).text();
+                }
+            });
+                return parseInt(currentPage) - 1;
+        }
+
+
+
+
+
+
+
 
 <!--    $(document).ready(function() {-->
 <!--       $.get("/rest/players", function(data) {-->
