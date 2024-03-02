@@ -200,6 +200,12 @@
             let profession_current_value = td_profession.innerHTML;
             td_profession.innerHTML = getDropdownProfessionHtml(id);
             $(profession_id).val(profession_current_value).change();
+
+            let td_banned = children[7];
+            let banned_id = "#select_banned_" + id;
+            let banned_current_value = td_banned.innerHTML;
+            td_banned.innerHTML = getDropdownBannedHtml(id);
+            $(banned_id).val(banned_current_value).change();
         }
 
         function getDropdownRaceHtml(id) {
@@ -230,6 +236,14 @@
             + "</select>";
         }
 
+        function getDropdownBannedHtml(id) {
+            let banned_id = "select_banned_" + id;
+            return "<label for='banned'></label>"
+            + "<select id=" + banned_id+ " name='banned'>"
+            + "<option value='true'>true</option>"
+            + "<option value='false'>false</option>"
+            + "</select>";
+        }
 
 
         function getCurrentPage() {
