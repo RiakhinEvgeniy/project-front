@@ -15,6 +15,46 @@
         margin: 1px;
         margin-top: 1px;
         }
+
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        }
+
+        form {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        }
+
+        label{
+        display: block;
+        margin-bottom: 10px;
+        }
+
+        select, input[type="number"], input[type="date"] {
+        width: 15%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        }
+
+        button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+        background-color: #45a049;
+        }
+
     </style>
 
 <body onload="displayList(0)">
@@ -34,6 +74,7 @@
     <option value="17">17</option>
     <option value="20">20</option>
 </select>
+
 
 <table id="t1">
     <tr>
@@ -56,10 +97,11 @@
 
 <label for="input_name_new">Name:</label>
 <input type="text" name="name" id="input_name_new" required size="12" maxlength="12">
+<br>
 
 <label for="input_title_new">Title:</label>
 <input type="text" name="title" id="input_title_new" required size="30" maxlength="30">
-<br><br>
+<br>
 
 <label for="input_race_new">Race:</label>
 <select id="input_race_new" name='race'>
@@ -70,9 +112,8 @@
     <option value='ORC'>ORC</option>
     <option value='TROLL'>TROLL</option>
     <option value='HOBBIT'>HOBBIT</option>
-    </select>
-<br><br>
-
+</select>
+<br>
 
 <label for='input_profession_new'>Profession:</label>
 <select id="input_profession_new" name='profession'>
@@ -83,21 +124,21 @@
     <option value='PALADIN'>PALADIN</option>
     <option value='NAZGUL'>NAZGUL</option>
     <option value='WARLOCK'>WARLOCK</option>
-    </select>
-<br><br>
+</select>
+<br>
 
 <label for='input_level_new'>Level:</label>
 <input type="number" id="input_level_new" name="level" min="0" max="100">
-<br><br>
+<br>
 
 <label for='input_birthday_new'>Birthday:</label>
 <input type="date" id="input_birthday_new" name="birthday" min="2000-01-01" max="3000-12-31">
-<br><br>
+<br>
 
 <label for='input_banned_new'>Banned:</label>
 <select id="input_banned_new" name='banned'>
-<option value='false' name="fals">false</option>
-<option value='true' name="true">true</option>
+    <option value='false' name="fals">false</option>
+    <option value='true' name="true">true</option>
 </select>
 <br>
 
